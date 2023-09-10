@@ -1,8 +1,20 @@
-import { Button } from '@mui/base'
+import fetcher from '../fetcher'
+import { Button } from 'flowbite-react'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import useSWR from 'swr'
 
 const Home: FC = () => {
+  const { data, isLoading, error } = useSWR<number>('/player/count', fetcher)
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  console.log(error)
+
+  console.log(data)
+
   return (
     <>
       <h1 className="text-center text-5xl">Cruce online</h1>
@@ -10,7 +22,7 @@ const Home: FC = () => {
       <div className="my-4 flex flex-col gap-4">
         <Link
           to={`rooms`}
-          className="rounded-md bg-green-700 px-4 py-1 text-center"
+          className="rounded-md bg-green-800 px-4 py-1 text-center"
         >
           Joaca acum
         </Link>
@@ -18,7 +30,7 @@ const Home: FC = () => {
           Intra in cont
         </Button>
       </div>
-      <h2 className="text-center font-bold">Jucatori online: TODO</h2>
+      <h2 className="text-center font-bold">Jucatori online: {}</h2>
     </>
   )
 }

@@ -4,8 +4,9 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from '@@routes/Home'
 import ErrorPage from '@@routes/ErrorPage'
-import Rooms from '@@routes/Rooms'
+import RoomBrowser from '@@routes/RoomBrowser'
 import Root from '@@components/Root'
+import Room from '@@routes/Room'
 
 const router = createBrowserRouter([
   {
@@ -19,12 +20,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/rooms',
-        element: <Rooms />,
+        element: <RoomBrowser />,
         errorElement: <ErrorPage />,
       },
       {
         path: '/room/:id',
-        element: <p>This is the room page</p>,
+        element: <Room />,
         errorElement: <ErrorPage />,
       },
     ],

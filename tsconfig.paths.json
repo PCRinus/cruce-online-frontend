@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@@fetcher": ["src/fetcher.ts"],
       "@@routes/*": ["src/routes/*"],
       "@@components/*": ["src/components/*"],
     }
