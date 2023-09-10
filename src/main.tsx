@@ -7,6 +7,8 @@ import ErrorPage from '@@routes/ErrorPage'
 import RoomBrowser from '@@routes/RoomBrowser'
 import Root from '@@components/Root'
 import Room from '@@routes/Room'
+import { SWRConfig } from 'swr'
+import fetcher from './fetcher'
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <SWRConfig
+      value={{
+        fetcher,
+      }}
+    >
+      <RouterProvider router={router} />
+    </SWRConfig>
   </React.StrictMode>
 )
