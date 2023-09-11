@@ -1,3 +1,4 @@
+import useCreateRoom from '@@hooks/useCreateRoom';
 import { Button, Dialog, DialogBody, DialogHeader, Input, Radio, Typography } from '@material-tailwind/react';
 import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -5,7 +6,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 interface CreateRoomFormInput {
   roomName: string;
   playerCount: 2 | 3 | 4;
-  turnTimeLimit: 15 | 20 | 30;
 }
 
 interface CreateRoomFormProps {
@@ -14,8 +14,11 @@ interface CreateRoomFormProps {
 
 const CreateRoomForm: FC<CreateRoomFormProps> = ({ handler }: CreateRoomFormProps) => {
   const { register, handleSubmit } = useForm<CreateRoomFormInput>();
+  const { trigger } = useCreateRoom();
+
   const onSubmit: SubmitHandler<CreateRoomFormInput> = (data) => {
     console.log(data);
+    trigger(data);
     handler();
   };
 
