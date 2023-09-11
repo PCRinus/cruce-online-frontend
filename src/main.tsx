@@ -1,14 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Home from '@@routes/Home'
-import ErrorPage from '@@routes/ErrorPage'
-import Lobby from '@@routes/Lobby'
-import Root from '@@components/Root'
-import Room from '@@routes/Room'
-import { SWRConfig } from 'swr'
-import fetcher from './fetcher'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Home from '@@routes/Home';
+import ErrorPage from '@@routes/ErrorPage';
+import Lobby from '@@routes/Lobby';
+import Root from '@@components/Root';
+import Room from '@@routes/Room';
+import { SWRConfig } from 'swr';
+import fetcher from './fetcher';
+import { ThemeProvider } from '@material-tailwind/react';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -41,7 +42,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         fetcher,
       }}
     >
-      <RouterProvider router={router} />
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </SWRConfig>
   </React.StrictMode>
-)
+);
