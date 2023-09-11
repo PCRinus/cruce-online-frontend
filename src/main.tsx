@@ -4,7 +4,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from '@@routes/Home'
 import ErrorPage from '@@routes/ErrorPage'
-import RoomBrowser from '@@routes/RoomBrowser'
+import Lobby from '@@routes/Lobby'
 import Root from '@@components/Root'
 import Room from '@@routes/Room'
 import { SWRConfig } from 'swr'
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: '/rooms',
-        element: <RoomBrowser />,
+        path: '/lobby',
+        element: <Lobby />,
         errorElement: <ErrorPage />,
       },
       {
