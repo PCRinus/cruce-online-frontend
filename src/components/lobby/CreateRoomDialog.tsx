@@ -1,11 +1,13 @@
 import useCreateRoom from '@@hooks/useCreateRoom';
 import { Button, Dialog, DialogBody, DialogHeader, Input, Radio, Typography } from '@material-tailwind/react';
 import { FC } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 interface CreateRoomFormInput {
   roomName: string;
   playerCount: 2 | 3 | 4;
+  pointsToWin: 11 | 15 | 21;
+  turnTimeLimit: 15 | 20 | 30;
 }
 
 interface CreateRoomFormProps {
@@ -13,7 +15,7 @@ interface CreateRoomFormProps {
 }
 
 const CreateRoomForm: FC<CreateRoomFormProps> = ({ handler }: CreateRoomFormProps) => {
-  const { register, handleSubmit } = useForm<CreateRoomFormInput>();
+  const { register, control, handleSubmit } = useForm<CreateRoomFormInput>();
   const { trigger } = useCreateRoom();
 
   const onSubmit: SubmitHandler<CreateRoomFormInput> = (data) => {
@@ -24,16 +26,43 @@ const CreateRoomForm: FC<CreateRoomFormProps> = ({ handler }: CreateRoomFormProp
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      <Input size="lg" label="Numele camerei" {...register('roomName')} />
+      <Controller
+        name="roomName"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => <Input size="lg" label="Numele camerei" {...field} />}
+      />
 
       <div className="flex flex-col gap-1">
         <Typography color="gray" variant="h6">
           Numarul de jucatori
         </Typography>
         <div className="flex flex-row justify-between px-4">
-          <Radio {...register('playerCount')} label="2" value={2}></Radio>
-          <Radio {...register('playerCount')} label="3" value={3}></Radio>
-          <Radio {...register('playerCount')} label="4" value={4}></Radio>
+          <Radio {...register('playerCount')} label="2" value={2} name="playerCount"></Radio>
+          <Radio {...register('playerCount')} label="3" value={3} name="playerCount"></Radio>
+          <Radio {...register('playerCount')} label="4" value={4} name="playerCount"></Radio>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Typography color="gray" variant="h6">
+          Puncte pentru victorie
+        </Typography>
+        <div className="flex flex-row justify-between px-4">
+          <Radio {...register('pointsToWin')} label="11" value={11} name="pointsToWin"></Radio>
+          <Radio {...register('pointsToWin')} label="15" value={15} name="pointsToWin"></Radio>
+          <Radio {...register('pointsToWin')} label="21" value={21} name="pointsToWin"></Radio>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Typography color="gray" variant="h6">
+          Limita de timp per tura
+        </Typography>
+        <div className="flex flex-row justify-between px-4">
+          <Radio {...register('turnTimeLimit')} label="15" value={15} name="turnTimeLimit"></Radio>
+          <Radio {...register('turnTimeLimit')} label="20" value={20} name="turnTimeLimit"></Radio>
+          <Radio {...register('turnTimeLimit')} label="30" value={30} name="turnTimeLimit"></Radio>
         </div>
       </div>
 
