@@ -10,7 +10,6 @@ import Room from '@@routes/Room';
 import { SWRConfig } from 'swr';
 import fetcher from './fetcher';
 import { ThemeProvider } from '@material-tailwind/react';
-import Navbar from '@@components/navbar/Navbar';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +43,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       }}
     >
       <ThemeProvider>
-        <Navbar />
         <RouterProvider router={router} />
       </ThemeProvider>
     </SWRConfig>

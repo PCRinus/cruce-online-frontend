@@ -1,5 +1,6 @@
 import { Typography } from '@material-tailwind/react';
 import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface HamburgerButtonProps {
   isMenuVisible: boolean;
@@ -17,19 +18,22 @@ const HamburgerButton: FC<HamburgerButtonProps> = ({ isMenuVisible, setIsMenuVis
 };
 
 const Navbar: FC = () => {
+  const navigate = useNavigate();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   return (
     <>
       <div className="flex flex-row justify-between bg-gray-200 p-4 align-middle">
-        <Typography variant="lead">✝️ Cruce Online</Typography>
+        <Typography variant="lead" onClick={() => navigate('/')}>
+          ✝️ Cruce Online
+        </Typography>
         <HamburgerButton isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible} />
       </div>
 
       {isMenuVisible && (
-        <div className='flex flex-col gap-2 bg-gray-100 px-4 py-3'>
-          <Typography variant='paragraph'>🏆 Leaderboard</Typography>
-          <Typography variant='paragraph'>🏆 Leaderboard</Typography>
+        <div className="flex flex-col gap-2 bg-gray-100 px-4 py-3">
+          <Typography variant="paragraph">🏆 Leaderboard</Typography>
+          <Typography variant="paragraph">🏆 Leaderboard</Typography>
         </div>
       )}
     </>

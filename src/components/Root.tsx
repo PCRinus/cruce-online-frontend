@@ -1,11 +1,15 @@
-import { FC } from "react";
-import { Outlet } from "react-router-dom";
+import { FC } from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from './navbar/Navbar';
 
 const Root: FC = () => {
   return (
-    <div className="container flex grow flex-col gap-4 p-4">
-      <Outlet />
-    </div>
+    <>
+      <Navbar />
+      <div className="container flex grow flex-col p-4">
+        <Outlet />
+      </div>
+    </>
   );
 };
 

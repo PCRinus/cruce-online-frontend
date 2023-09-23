@@ -1,11 +1,11 @@
-import { Button } from '@material-tailwind/react';
+import { Button, Typography } from '@material-tailwind/react';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 const Home: FC = () => {
   return (
     <div className='flex flex-col justify-center gap-8'>
-      <h1 className="text-center text-4xl">Cruce online</h1>
+      <Typography variant='h1'>Cruce online</Typography>
 
       <div className="flex flex-col gap-4">
         <Link to={`lobby`} className="rounded-md bg-green-800 px-4 py-2 text-center uppercase text-white">
