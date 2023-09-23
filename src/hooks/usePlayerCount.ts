@@ -1,15 +1,22 @@
-import useSWR from 'swr'
+import { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 
 const usePlayerCount = () => {
-  const { isLoading, error, data: playerCount } = useSWR<number>('/lobby/player-count', {
-    refreshInterval: 1000,
-  })
+  const [playerCount, setPlayerCount] = useState(0);
 
-  return {
-    isLoading,
-    error,
-    playerCount,
-  }
-}
+  useEffect(() => {
+    const socket = io('http://localhost:3000/lobby');
+
+    socket.on('player-count', (data: { playerCount: number }) => {
+      setPlayerCount(data.playerCount);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  return playerCount;
+};
 
 export default usePlayerCount;

@@ -1,25 +1,18 @@
-import CreateRoomDialog from '@@components/lobby/CreateRoomDialog'
-import RoomCard from '@@components/lobby/RoomCard'
-import usePlayerCount from '@@hooks/usePlayerCount'
-import { Button } from '@material-tailwind/react'
-import { FC, useEffect, useState } from 'react'
-import { io } from 'socket.io-client'
+import CreateRoomDialog from '@@components/lobby/CreateRoomDialog';
+import RoomCard from '@@components/lobby/RoomCard';
+import usePlayerCount from '@@hooks/usePlayerCount';
+import { Button } from '@material-tailwind/react';
+import { FC, useState } from 'react';
 
 const Lobby: FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const { playerCount } = usePlayerCount()
+  const [isOpen, setIsOpen] = useState(false);
+  const playerCount = usePlayerCount();
+
+  console.log(playerCount);
 
   const handleOpen = () => {
-    setIsOpen(!isOpen)
-  }
-
-  useEffect(() => {
-    const socket = io('http://localhost:3000/lobby-ws')
-
-    return () => {
-      socket.disconnect()
-    }
-  }, [])
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
@@ -35,7 +28,7 @@ const Lobby: FC = () => {
 
       <CreateRoomDialog isOpen={isOpen} handler={handleOpen} />
     </>
-  )
-}
+  );
+};
 
-export default Lobby
+export default Lobby;
