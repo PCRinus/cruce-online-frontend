@@ -1,7 +1,7 @@
-import useCreateRoom from '@@hooks/useCreateRoom';
 import { Button, Dialog, DialogBody, DialogHeader, Input, Radio, Typography } from '@material-tailwind/react';
 import { FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { io } from 'socket.io-client';
 
 interface CreateRoomFormInput {
   roomName: string;
@@ -16,11 +16,13 @@ interface CreateRoomFormProps {
 
 const CreateRoomForm: FC<CreateRoomFormProps> = ({ handler }: CreateRoomFormProps) => {
   const { register, control, handleSubmit } = useForm<CreateRoomFormInput>();
-  const { trigger } = useCreateRoom();
 
   const onSubmit: SubmitHandler<CreateRoomFormInput> = (data) => {
     console.log(data);
-    trigger(data);
+    const socket = io('http://localhost:3000/room');
+
+    socket.emit('create-room', data);
+
     handler();
   };
 

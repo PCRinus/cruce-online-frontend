@@ -11,13 +11,13 @@ type Room = {
 };
 
 const useRoomList = () => {
-  const [rooms, setRooms] = useState<Room[]>([]);
+  const [roomCount, setRoomCount] = useState<number>(0);
 
   useEffect(() => {
     const socket = io('http://localhost:3000/room');
 
     socket.on('rooms', (data: Room[]) => {
-      setRooms(data);
+      setRoomCount(data.length);
     });
 
     return () => {
@@ -25,7 +25,7 @@ const useRoomList = () => {
     };
   }, []);
 
-  return rooms;
+  return roomCount;
 };
 
 export default useRoomList;
