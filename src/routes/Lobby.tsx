@@ -1,33 +1,43 @@
 import CreateRoomDialog from '@@components/lobby/CreateRoomDialog';
-import RoomCard from '@@components/lobby/RoomCard';
+import RoomCard from '@@components/room/RoomCard';
 import usePlayerCount from '@@hooks/usePlayerCount';
-import { Button } from '@material-tailwind/react';
+import useRoomList from '@@hooks/useRoomList';
+import { Button, Typography } from '@material-tailwind/react';
 import { FC, useState } from 'react';
 
 const Lobby: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const playerCount = usePlayerCount();
-
-  console.log(playerCount);
+  const rooms = useRoomList();
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <>
-      <h1 className="text-center text-5xl">Camere</h1>
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-col">
+        <Typography variant="h3">Camere</Typography>
+        <Typography variant="lead">Jucatori online: {playerCount}</Typography>
+      </div>
 
-      <h2 className="text-center font-bold">Jucatori online: {playerCount}</h2>
-
-      <Button onClick={handleOpen} className="rounded-md bg-green-700 px-4 py-2 font-normal">
+      <Button onClick={handleOpen} className="rounded-md bg-blue-700 px-4 py-2 font-normal">
         Creaza o camera
       </Button>
 
-      <RoomCard />
+      {rooms.map((room) => (
+        <RoomCard
+          roomName={room.roomName}
+          maxPlayerCount={room.maxPlayerCount}
+          currentPlayerCount={room.currentPlayerCount}
+          pointsToWin={room.pointsToWin}
+          turnTimeLimit={room.turnTimeLimit}
+          key={room.roomName}
+        />
+      ))}
 
       <CreateRoomDialog isOpen={isOpen} handler={handleOpen} />
-    </>
+    </div>
   );
 };
 
