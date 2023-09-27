@@ -1,6 +1,14 @@
-import { Button, Dialog, DialogBody, DialogHeader, Input, Radio, Typography } from '@material-tailwind/react';
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogHeader,
+  Input,
+  Radio,
+  Typography,
+} from '@material-tailwind/react';
 import { FC } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { io } from 'socket.io-client';
 
 interface CreateRoomFormInput {
@@ -15,25 +23,20 @@ interface CreateRoomFormProps {
 }
 
 const CreateRoomForm: FC<CreateRoomFormProps> = ({ handler }: CreateRoomFormProps) => {
-  const { register, control, handleSubmit } = useForm<CreateRoomFormInput>();
+  const { register, handleSubmit } = useForm<CreateRoomFormInput>();
 
   const onSubmit: SubmitHandler<CreateRoomFormInput> = (data) => {
-    console.log(data);
     const socket = io('http://localhost:3000/room');
-
     socket.emit('create-room', data);
+
+    console.log(data);
 
     handler();
   };
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="roomName"
-        control={control}
-        rules={{ required: true }}
-        render={({ field }) => <Input size="lg" label="Numele camerei" {...field} />}
-      />
+      <Input size="lg" label="Numele camerei" {...register('roomName')} />
 
       <div className="flex flex-col gap-1">
         <Typography color="gray" variant="h6">
