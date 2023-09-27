@@ -1,4 +1,4 @@
-import CreateRoomDialog from '@@components/lobby/CreateRoomDialog';
+import CreateRoomDialog from '@@components/room/CreateRoomDialog';
 import RoomCard from '@@components/room/RoomCard';
 import Skeleton from '@@components/ui/Skeleton';
 import useRoomCount from '@@hooks/useRoomCount';
@@ -19,7 +19,7 @@ const Lobby: FC = () => {
     <div className="flex flex-col gap-3">
       <div className="flex flex-col">
         <Typography variant="h2">Camere</Typography>
-        {!roomCount ? (
+        {isNaN(roomCount) ? (
           <Skeleton />
         ) : (
           <Typography variant="lead">Camere disponibile: {roomCount}</Typography>
